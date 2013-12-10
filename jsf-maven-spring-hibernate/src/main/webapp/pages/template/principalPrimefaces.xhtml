@@ -1,0 +1,50 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+     xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+     xmlns:p="http://primefaces.org/ui"
+     xmlns:ui="http://java.sun.com/jsf/facelets">
+ <h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+ 	<title><ui:insert name="titulo">Proximo Web</ui:insert></title>
+ 	<h:outputStylesheet library="css" name="estilo.css"></h:outputStylesheet>
+ 	
+ 	<style type="text/css">
+ 		#logo{
+ 			text-align: center;
+ 			position: relative;
+ 		}
+ 		
+ 		.centralizar{
+ 			text-align: center;
+ 			position: relative;
+ 		}
+ 	</style>
+ 	
+ </h:head>
+ 
+ <h:body>
+
+		<p:layout id="container" fullPage="true">  
+		
+			<p:layoutUnit id="logo" position="north" size="100" header="Top" resizable="true" closable="true" collapsible="true">
+				<h:graphicImage library="imagens" url="/resources/img/LOGO_PROXIMO.jpg" />
+			</p:layoutUnit>
+
+		
+		<div id="barra_menu">
+			<ui:insert name="barra_menu">
+				<ui:include src="barraDeMenu.xhtml"></ui:include>
+			</ui:insert>
+		</div>
+		
+		<div id="corpo">
+			<ui:insert name="corpo"/>
+		</div>
+		
+			
+	
+	</p:layout> 
+	
+	
+</h:body>
+</html> 

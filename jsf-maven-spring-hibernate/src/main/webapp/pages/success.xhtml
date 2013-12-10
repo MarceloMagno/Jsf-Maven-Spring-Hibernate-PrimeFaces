@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Welcome to OTV_JSF_Spring_Hibernate_Project</title>
+</h:head>
+<h:body>
+    <h:form id="form">
+		
+		<p:growl id="messages" showDetail="true"/>
+		
+		<p:dataTable var="user" value="#{usuarioBean.userList}" id="userList" editable="true" style="width: 40%">  
+  
+        <f:facet name="header" >Relação de Usuarios do Sistema</f:facet>  
+  
+        <p:ajax event="rowEdit" listener="#{usuarioBean.onEdit}" update=":form:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{usuarioBean.onCancel}" update=":form:messages" />  
+  
+        <p:column headerText="Nome" style="width:30%">  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{user.name}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{user.name}" style="width:100%"/>  
+                </f:facet>  
+            </p:cellEditor>  
+        </p:column>  
+  
+        <p:column headerText="Sobrenome " style="width:20%">  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{user.surname}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{user.surname}" style="width:100%" label="Sobrenome"/>  
+                </f:facet>  
+                <p:selectOneMenu style="width:100%;" id="tipoUsuario" value="#{usuarioBean.tipoDeUsuarioSelecionado}">  
+                		<f:selectItem itemLabel="Selecione o Tipo de Usuario" itemValue="usuarioBean.listaTipoUser.id" />  
+                		<f:selectItems value="#{usuarioBean.listaTipoUser}" />                 		
+            		</p:selectOneMenu>
+            </p:cellEditor>  
+        </p:column>
+        <p:column>
+            	<f:facet name="header">Excluir</f:facet>
+            	<h:commandLink action="#{usuarioBean.excluiUser}" update="users">
+            	    <h:graphicImage value="/seguro/imagens/apagar.gif" style="border: none;" alt="Excluir"/>  
+                	<b><f:setPropertyActionListener target="#{usuarioBean.user}" value="#{user}"/></b> 
+                </h:commandLink>
+        </p:column>
+        <p:column style="width:6%">  
+            <p:rowEditor />  
+        </p:column>  
+  
+    </p:dataTable>  
+  
+</h:form>
+</h:body>
+ 
+</html>

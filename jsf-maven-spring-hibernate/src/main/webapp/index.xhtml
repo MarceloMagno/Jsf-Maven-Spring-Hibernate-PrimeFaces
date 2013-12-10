@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:p="http://primefaces.org/ui">
+      
+      
+<head>
+	<title>Lista de Usuarios</title>
+</head>
+<body>
+	<H1>Lista de Usuarios</H1>
+	
+	<h:form id="form">
+		
+		<p:growl id="messages" showDetail="true"/>
+		
+		<p:dataTable var="user" value="#{usuarioBean.userList}" id="userList" editable="true">  
+  
+        <f:facet name="header">In-Cell Editing</f:facet>  
+  
+        <p:ajax event="rowEdit" listener="#{usuarioBean.onEdit}" update=":form:messages" />  
+        <p:ajax event="rowEditCancel" listener="#{usuarioBean.onCancel}" update=":form:messages" />  
+  
+        <p:column headerText="Nome" style="width:30%">  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{user.name}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{user.name}" style="width:100%"/>  
+                </f:facet>  
+            </p:cellEditor>  
+        </p:column>  
+  
+        <p:column headerText="Sobrenome " style="width:20%">  
+            <p:cellEditor>  
+                <f:facet name="output">  
+                    <h:outputText value="#{user.surname}" />  
+                </f:facet>  
+                <f:facet name="input">  
+                    <p:inputText value="#{user.surname}" style="width:100%" label="Sobrenome"/>  
+                </f:facet>  
+            </p:cellEditor>  
+        </p:column>
+        <p:column style="width:6%">  
+            <p:rowEditor />  
+        </p:column>  
+  
+    </p:dataTable>  
+  
+</h:form>  
+</body>
+</html>

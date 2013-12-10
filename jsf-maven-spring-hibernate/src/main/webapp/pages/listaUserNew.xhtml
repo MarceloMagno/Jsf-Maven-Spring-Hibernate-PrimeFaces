@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+    
+    
+    <h:head>
+ 	<title>Welcome to OTV_JSF_Spring_Hibernate_Project</title>
+ </h:head>
+ 
+ <h:body>
+ 
+ <p:layout fullPage="true">  
+  
+    <p:layoutUnit position="north" size="100" resizable="true" style="border: 0;" >  
+        <p:panel style="text-align: center;">
+        	<h:graphicImage url="/resources/img/LOGO.png" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;  background-color: #cce; text-align: center;" />     
+        </p:panel> 
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="south" size="55" resizable="true" closable="false" style="border: 0px" collapsible="false">  
+        <h:graphicImage url="/resources/img/barra_menu.png" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;  background-color: #cce; text-align: center;" />  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="west" size="200" header="Menu" resizable="false" style="border: 0;" closable="false" collapsible="false">  
+         <h:outputText value="Area para menu de arvore" />   
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="east" size="200" style="border: 0;" resizable="true" closable="false" collapsible="false" effect="drop">  
+       
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="center">  
+        <h:form id="form1" >
+		 <p:growl id="msg" />
+		 <p:fieldset legend="Novo Usuário" toggleable="true" style=" margin-right: auto; margin-left: auto; font-size:12px; width:94%;">
+			<p:dataTable id="tab1" var="userReset" value="#{usuarioBean.userReset}" editable="true" style=" font-size:12px; width: 100%;">  
+				<p:column headerText="Nome" style="width:30%; font-size:12px;">
+					<p:inputText id="name" value="#{usuarioBean.userReset.name}" style="width:100%;">
+						<f:validateLength minimum="2" />
+					</p:inputText>		
+				</p:column>
+				<p:column headerText="Sobrenome" style="width:30%; font-size:10px; ">
+					<p:inputText id="surname" value="#{usuarioBean.userReset.surname}" style="width:100%;">
+						<f:validateLength minimum="2" />
+					</p:inputText>	
+				</p:column>
+				<p:column headerText="Tipo de Usuário" style="width:30%; font-size:10px; size:50%;">
+	            	<p:selectOneMenu style="width:100%;" value="#{usuarioBean.tipoDeUsuarioSelecionado}">  
+	              		<f:selectItem itemLabel="Selecione o Tipo de Usuario" itemValue="" />  
+	              		<f:selectItems value="#{usuarioBean.listaTipoUser}" itemValue="#{usuarioBean.listaTipoUser.id}"/>             	
+	          		</p:selectOneMenu>
+		        </p:column>
+				<p:column>
+					<h:commandLink action="#{usuarioBean.addUser}" update="form1">
+	            	    <h:graphicImage value="/resources/img/salvar.png" style="border: none; size:50%;  width:20px " alt="Salvar"/>  
+	                	<b><f:setPropertyActionListener target="#{usuarioBean.userReset}" value="#{userReset}"/></b> 
+	                </h:commandLink>
+				</p:column>
+				<p:column>
+					<h:commandLink action="#{usuarioBean.reset}" update="tab1">
+	            	    <h:graphicImage value="/resources/img/limpar.png" style="border: none; size:50%;  width:20px " alt="Limpar"/>  
+	                </h:commandLink>
+				</p:column>
+			</p:dataTable>
+		  </p:fieldset>
+		</h:form>
+		
+		<h:form id="form">
+			
+			<p:growl id="messages"/>
+			
+			<p:dataTable var="user" value="#{usuarioBean.userList}" id="users" editable="true" editMode="row" sortOrder="true" style="font-size:12px; width:100%;" paginator="true" rows="7">  
+	  
+	        <f:facet name="header" >Relação de Usuarios do Sistema</f:facet>  
+	  
+	        <p:ajax event="rowEdit" listener="#{usuarioBean.onEdit}" update=":form:messages" />  
+	        <p:ajax event="rowEditCancel" listener="#{usuarioBean.onCancel}" update=":form:messages" />  
+	          
+	  		<p:column headerText="Codigo" style="width:5%; font-size:10px;" >   
+	                    <h:outputText value="#{user.id}" />     
+	        </p:column>
+	  
+	        <p:column headerText="Nome" style="width:30%; font-size:10px;">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{user.name}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{user.name}" style="width:100%"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	        </p:column>  
+	  
+	        <p:column headerText="Sobrenome " style="width:20%; font-size:10px;">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{user.surname}" />  
+	                </f:facet>  
+	                <f:facet name="input">  
+	                    <p:inputText value="#{user.surname}" style="width:100%" label="Sobrenome"/>  
+	                </f:facet>  
+	            </p:cellEditor>  
+	        </p:column>
+	        <p:column headerText="Tipo de Usuário " style="width:20%; font-size:10px;">  
+	            <p:cellEditor>  
+	                <f:facet name="output">  
+	                    <h:outputText value="#{user.tipoUsuario.descricao}" />  
+	                </f:facet>  
+	            	<f:facet name="input">
+	            		<p:selectOneMenu style="width:100%;" value="#{usuarioBean.tipoDeUsuarioSelecionado}">  
+	                		<f:selectItem itemLabel="Selecione o Tipo de Usuario" itemValue="" />  
+	                		<f:selectItems value="#{usuarioBean.listaTipoUser}" itemValue="#{usuarioBean.listaTipoUser.id}"/>             	
+	            		</p:selectOneMenu>
+	                </f:facet>  
+	            </p:cellEditor>  
+	        </p:column>
+	        <p:column style="font-size:10px; width:5%;">
+	            	<h:commandLink action="#{usuarioBean.excluiUser}" update="users">
+	            	    <h:graphicImage value="/resources/img/lixeira.gif" style="border: none; width:20px " alt="Excluir"/>  
+	                	<b><f:setPropertyActionListener target="#{usuarioBean.user}" value="#{user}"/></b> 
+	                </h:commandLink>
+	        </p:column>
+	        <p:column style="width:6%">  
+	            <p:rowEditor />  
+	        </p:column>  
+	  
+	    </p:dataTable>  
+	   </h:form> 		
+    </p:layoutUnit>  
+  
+</p:layout>  
+
+</h:body>
+</html> 
