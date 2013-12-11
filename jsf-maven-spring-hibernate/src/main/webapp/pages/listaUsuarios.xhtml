@@ -4,20 +4,47 @@
     xmlns:f="http://java.sun.com/jsf/core"
     xmlns:ui="http://java.sun.com/jsf/facelets"
     xmlns:p="http://primefaces.org/ui">
-
- <ui:composition template="template/principal.xhtml">
- 	<ui:define name="corpo">
-	
-		<h:form id="form1" >
+    
+    
+    <h:head>
+ 		<title>Projeto exemplo com JSF, Spring, Hibernate e PrimeFaces</title>
+ 	</h:head>
+ 
+ <h:body>
+ 
+ <p:layout fullPage="true">  
+  
+    <p:layoutUnit position="north" size="100" resizable="true" style="border: 0;" >  
+        <div>
+ 		<H2 style="color: blue; text-align: center;">Projeto exemplo com JSF, Spring, Hibernate e PrimeFaces</H2>
+ 	</div>
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="south" size="55" resizable="true" closable="false" style="border: 0px" collapsible="false">  
+        <h:graphicImage url="/resources/img/barra_menu.png" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 80px;  background-color: #cce; text-align: center;" />  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="west" size="200" header="Menu" resizable="false" style="border: 0;" closable="false" collapsible="false">  
+         <Ul>
+			<LI> <A href="principal.xhtml">HOME</A></LI>
+		</Ul>  
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="east" size="200" style="border: 0;" resizable="true" closable="false" collapsible="false" effect="drop">  
+       
+    </p:layoutUnit>  
+  
+    <p:layoutUnit position="center">  
+        <h:form id="form1" >
 		 <p:growl id="msg" />
-		 <p:fieldset legend="Novo Usuário" style=" margin-right: auto; margin-left: auto; font-size:12px; width:38%;">
+		 <p:fieldset legend="Novo Usuário" toggleable="true" style=" margin-right: auto; margin-left: auto; font-size:12px; width:94%;">
 			<p:dataTable id="tab1" var="userReset" value="#{usuarioBean.userReset}" editable="true" style=" font-size:12px; width: 100%;">  
 				<p:column headerText="Nome" style="width:30%; font-size:12px;">
 					<p:inputText id="name" value="#{usuarioBean.userReset.name}" style="width:100%;">
 						<f:validateLength minimum="2" />
 					</p:inputText>		
 				</p:column>
-				<p:column headerText="Sobrenome"  style="width:30%; font-size:10px; ">
+				<p:column headerText="Sobrenome" style="width:30%; font-size:10px; ">
 					<p:inputText id="surname" value="#{usuarioBean.userReset.surname}" style="width:100%;">
 						<f:validateLength minimum="2" />
 					</p:inputText>	
@@ -35,7 +62,7 @@
 	                </h:commandLink>
 				</p:column>
 				<p:column>
-					<h:commandLink action="#{usuarioBean.reset}" update="form1">
+					<h:commandLink action="#{usuarioBean.reset}" update="tab1">
 	            	    <h:graphicImage value="/resources/img/limpar.png" style="border: none; size:50%;  width:20px " alt="Limpar"/>  
 	                </h:commandLink>
 				</p:column>
@@ -47,7 +74,7 @@
 			
 			<p:growl id="messages"/>
 			
-			<p:dataTable var="user" value="#{usuarioBean.userList}" id="users" editable="true" editMode="row" style=" hight: 20%; margin-right: auto; margin-left: auto;font-size:12px; width:40%;" paginator="true" rows="5">  
+			<p:dataTable var="user" value="#{usuarioBean.userList}" id="users" editable="true" editMode="row" sortOrder="true" style="font-size:12px; width:100%;" paginator="true" >  
 	  
 	        <f:facet name="header" >Relação de Usuarios do Sistema</f:facet>  
 	  
@@ -103,9 +130,10 @@
 	        </p:column>  
 	  
 	    </p:dataTable>  
-	   </h:form> 
+	   </h:form> 		
+    </p:layoutUnit>  
+  
+</p:layout>  
 
-	</ui:define>
-</ui:composition>
-
-</html>
+</h:body>
+</html> 

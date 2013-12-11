@@ -26,9 +26,6 @@ public class User extends AbstractEntity implements Serializable{
 	@JoinColumn(name =  "FK_TIPO_USUARIO",  nullable=false,referencedColumnName="id" )
 	private UserType tipoUsuario;
 	
-	/*@ForeignKey(name = "FK_TIPO_USUARIO")
-	private Long fkTipoDeUsuario;*/
-	
 	public String getName() {
         return name;
     }

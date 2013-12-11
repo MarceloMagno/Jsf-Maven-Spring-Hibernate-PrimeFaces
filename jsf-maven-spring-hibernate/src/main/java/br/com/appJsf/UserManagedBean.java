@@ -88,6 +88,10 @@ public class UserManagedBean implements Serializable{
     	
     }
     
+    public String usuarios(){
+    	return "/pages/listaUser";
+    }
+    
     public List<User> getUserList() {
         userList = new ArrayList<User>();
         userList.addAll(userDAO.findAll());
