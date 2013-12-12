@@ -1,7 +1,9 @@
 package br.com.appJsf;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -43,6 +45,8 @@ public class UserManagedBean implements Serializable{
     private Long tipoDeUsuarioSelecionado;
     private User userReset;
     
+    private Date dataNascimento;
+    
     public UserManagedBean() {
     	userReset = new User();
 	}
@@ -57,6 +61,9 @@ public class UserManagedBean implements Serializable{
      
     public String addUser() {
     	try {
+    		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); 
+    		String stringData = dateFormat.format(getDataNascimento());
+    		System.out.println("Data de Nascimento: " + stringData);
     			//TODO essa validacao ja esta sendo feita na view, faço aq para garantir 
     			if((!userReset.getName().equals(null)) && (userReset.getName() != "") && ((! userReset.getSurname().equals(null)) && (userReset.getSurname() != "" )) && (this.tipoDeUsuarioSelecionado != 0)){
 	    			
@@ -66,6 +73,7 @@ public class UserManagedBean implements Serializable{
 	    				user.setId(null);
 		    			user.setName(userReset.getName());
 		    			user.setSurname(userReset.getSurname());
+		    			user.setDataNascimento(getDataNascimento());
 		    			userType = userTypeDAO.getById(this.tipoDeUsuarioSelecionado);
 		    			user.setTipoUsuario(userType);
 		    			userDAO.save(user);
@@ -73,7 +81,7 @@ public class UserManagedBean implements Serializable{
 		    			userReset.setSurname("");
 		    			this.tipoDeUsuarioSelecionado = 0l;
 
-		    			return "/pages/listaUser";
+		    			return "/pages/listaUsuarios";
 	    			}else{
 	    				FacesMessage msg = new FacesMessage(userReset.getName() + " já cadastrado!");  
 	    		        FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -89,12 +97,12 @@ public class UserManagedBean implements Serializable{
 			e.printStackTrace();
 		}
     	
-    	return "/pages/listaUser";
+    	return "/pages/listaUsuarios";
     	
     }
     
     public String usuarios(){
-    	return "/pages/listaUser";
+    	return "/pages/listaUsuarios";
     }
     
     public List<User> getUserList() {
@@ -127,14 +135,14 @@ public class UserManagedBean implements Serializable{
     
     public String excluiUser(){
        	userDAO.delete(userDAO.getById(user.getId()));
-    	return "/pages/listaUser";
+    	return "/pages/listaUsuarios";
     }
     
     public String editarUser(){
     	userType = userTypeDAO.getById(this.tipoDeUsuarioSelecionado);
     	user.setTipoUsuario(userType);
     	userDAO.update(userDAO.getById(user.getId()));
-    	return "/pages/listaUser";
+    	return "/pages/listaUsuarios";
     }
     
     public void onEdit(RowEditEvent event) {  
@@ -177,5 +185,13 @@ public class UserManagedBean implements Serializable{
 	public void setUserReset(User userReset) {
 		this.userReset = userReset;
 	}
- 	
+
+	public Date getDataNascimento() {
+		return dataNascimento;
+	}
+
+	public void setDataNascimento(Date dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
+ 
 }
