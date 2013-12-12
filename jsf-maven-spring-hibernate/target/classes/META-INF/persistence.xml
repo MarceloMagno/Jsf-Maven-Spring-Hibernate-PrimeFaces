@@ -2,20 +2,26 @@
 <persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
   
   <persistence-unit name="appJsfPU" transaction-type="RESOURCE_LOCAL">
+  	<!-- aq estou dizendo q o hibernate he o framework q implementa a JPA  -->
     <provider>org.hibernate.ejb.HibernatePersistence</provider>
    
+   <!-- Essa he a configuracao para usar o MySql, voce pode usar qualquer bamco, basta alterar as configuracoes abaixo -->
     <properties>
    
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect"/>
-      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/>
-      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
-      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/selecao"/>
-      <property name="hibernate.connection.username" value="root"/>
-      <property name="hibernate.connection.password" value="12345"/>
-      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      <property name="hibernate.cache.provider_class" value="org.hibernate.cache.NoCacheProvider"/> 
+      <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/> <!-- driver de conexao -->
+      <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/selecao"/> <!-- selecao he o nome do meu banco q está no meu localhost (no mesmo pc) -->
+      <property name="hibernate.connection.username" value="root"/> <!-- nome do usuario no banco -->
+      <property name="hibernate.connection.password" value="12345"/> <!-- senha do banco -->
+      <!-- define como o estado das tabelas iram se comportar no banco caso seja:
+           create = se existirem tabelas criadas elas serao recriadas. Obs: essa he feita inicialmente para criar as tabelas caso elas nao tenham sido criadas pelo SGBD
+           update = nao apaga nada, so atualiza. Obs: esse he o estado q tem q esta configurado apos a criacao das tabelas.
+           drop = apaga todas tabelas-->
+      <property name="hibernate.hbm2ddl.auto" value="update"/> 
   	
-  	  <property name="hibernate.show_sql" value="true"/>
-  	  <property name="hibernate.format_sql" value="true" />
+  	  <property name="hibernate.show_sql" value="true"/> <!-- para exibir no console os sqls executados -->
+  	  <property name="hibernate.format_sql" value="true" /> <!-- exibir no formato sql -->
   		
    </properties>
   

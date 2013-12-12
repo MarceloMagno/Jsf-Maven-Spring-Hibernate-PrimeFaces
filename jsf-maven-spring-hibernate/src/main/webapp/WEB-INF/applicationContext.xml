@@ -20,15 +20,17 @@
  
     <context:component-scan base-package="br.com.appJsf"/>
 	
-	<context:annotation-config />
+	<!-- define q sera feito injecao de dependencia por anotacao -->
+	<context:annotation-config /> 
 	
+	<!-- classes mapeadas para injecao -->
 	<bean class="br.com.appJsf.model.User"/>
 	<bean class="br.com.appJsf.model.UserType"/> 
 	
 	<mvc:annotation-driven/>
 
 	
-	<!-- gerenciamento de jpa pelo spring -->
+	<!-- gerenciamento da jpa pelo spring -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="persistenceUnitName" value="appJsfPU" />
 	</bean>
@@ -39,7 +41,6 @@
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
-
 
 
 </beans>

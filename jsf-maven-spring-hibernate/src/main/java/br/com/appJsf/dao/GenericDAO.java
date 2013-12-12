@@ -4,24 +4,27 @@ import java.lang.reflect.ParameterizedType;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Parameter;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import org.springframework.transaction.annotation.Transactional;
 
+/**
+ * @author Marcelo:
+ * Essa he uma classe generica de persistencia, nela ja esta implementado os metodos basicos.
+ * Caso vc queira criar novos metodos de persistencias isso tem q ser feito na respectiva classe dao.
+ * Para usar esta classe basta estende-la na dao q se quer criar informando a classe tipo no parametro T
+ * exemplo: extends GenericDAO<Pessoa> 
+ */
 
 @SuppressWarnings("unchecked")
 public class GenericDAO<T extends AbstractEntity> {
 	
+	/*
+	 * he criado no contexto o entity manager onde o spring ira
+	 * controlar criacao do objeto, nao sendo necessario instancia-lo
+	 */
 	@PersistenceContext
 	protected EntityManager entityManager;
-	
-	
-	/*public void setEntityManager(EntityManager entityManager) {
-		this.entityManager = entityManager;
-	}*/
 	
 	@Transactional
 	public T getById(Long id) {

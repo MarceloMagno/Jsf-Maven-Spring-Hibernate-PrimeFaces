@@ -19,8 +19,12 @@ import br.com.appJsf.model.User;
 import br.com.appJsf.model.UserType;
 
 
-@Controller(value="usuarioBean")
-@Scope(value="session")
+/**
+ * @author Marcelo
+ *
+ */
+@Controller(value="usuarioBean") //aq esta sendo usado o @Controller do spring e nao o @ManagedBean do faces
+@Scope(value="session") // aq esta sendo usado o @Scope do spring e nao o @SessionScoped do faces 
 public class UserManagedBean implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -53,6 +57,7 @@ public class UserManagedBean implements Serializable{
      
     public String addUser() {
     	try {
+    			//TODO essa validacao ja esta sendo feita na view, faço aq para garantir 
     			if((!userReset.getName().equals(null)) && (userReset.getName() != "") && ((! userReset.getSurname().equals(null)) && (userReset.getSurname() != "" )) && (this.tipoDeUsuarioSelecionado != 0)){
 	    			
     				boolean existe = userDAO.buscaPorNome(userReset.getName());
@@ -145,10 +150,11 @@ public class UserManagedBean implements Serializable{
     }  
       
     public void onCancel(RowEditEvent event) {  
-        FacesMessage msg = new FacesMessage("Cancelado edição do usuário");  
+        FacesMessage msg = new FacesMessage("Edição Cancelada");  
   
         FacesContext.getCurrentInstance().addMessage(null, msg);  
     }
+    
     
     public void reset(){
     	userReset.setName("");

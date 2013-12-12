@@ -6,6 +6,11 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrimaryKeyJoinColumn;
 
+/**
+ * @author Marcelo:
+ * Essa classe serve de base para todas as outras classes de entidades (tabelas de banco)
+ * Caso as suas tabelas tenham mais atributos comuns, esses atributos podem ser criados aq 
+ */
 @MappedSuperclass
 public class AbstractEntity {
 	 

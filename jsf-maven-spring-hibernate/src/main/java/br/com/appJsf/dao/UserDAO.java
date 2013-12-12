@@ -7,7 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.com.appJsf.model.User;
 
-@Repository
+/**
+ * @author Marcelo
+ *
+ */
+@Repository //essa anotacao he necessario para que spring possa fazer a injecao de dependencia
 public class UserDAO extends GenericDAO<User>{
 	
 	@Transactional

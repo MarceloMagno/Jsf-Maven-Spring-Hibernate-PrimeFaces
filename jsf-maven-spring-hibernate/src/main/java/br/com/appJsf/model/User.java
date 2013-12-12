@@ -10,6 +10,10 @@ import javax.persistence.Table;
 
 import br.com.appJsf.dao.AbstractEntity;
 
+/**
+ * @author Marcelo
+ *
+ */
 @Entity
 @Table(name="USER")
 public class User extends AbstractEntity implements Serializable{

@@ -4,10 +4,11 @@ import org.springframework.stereotype.Repository;
 
 import br.com.appJsf.model.UserType;
 
-
-@Repository
-public class UserTypeDAO extends GenericDAO<UserType> {
-
-	
+/**
+ * @author Marcelo
+ *
+ */
+@Repository //essa anotacao he necessario para que spring possa fazer a injecao de dependencia
+public class UserTypeDAO extends GenericDAO<UserType> {	
 
 }
